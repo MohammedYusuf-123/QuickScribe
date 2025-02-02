@@ -1,5 +1,6 @@
 package com.example.quickscribe.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,9 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -21,23 +24,33 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.quickscribe.R
 import com.example.quickscribe.components.NoteButton
 import com.example.quickscribe.components.NoteInputText
+import com.example.quickscribe.components.NoteRow
+import com.example.quickscribe.data.NotesDataSource
+import com.example.quickscribe.model.Note
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteScreen() {
+fun NoteScreen(
+    notes: List<Note>,
+    onAddNote: (Note) -> Unit,
+    onRemoveNote: (Note) -> Unit
+) {
     val noteName = remember {
         mutableStateOf("")
     }
     val noteContent = remember {
         mutableStateOf("")
     }
+    val context = LocalContext.current
     Scaffold(
         topBar = {
             TopAppBar(
@@ -90,7 +103,7 @@ fun NoteScreen() {
                     label = "Add a note",
                     onTextChanged = {
                         if (it.all { char ->
-                                char.isLetter() || char.isWhitespace()
+                                char.isLetter() || char.isWhitespace() || char.isDigit()
                             })
                             noteContent.value = it
                     },
@@ -103,19 +116,33 @@ fun NoteScreen() {
                 NoteButton(
                     buttonName = "Save",
                     onClick = {
-                        if (noteName.value.isNotEmpty() && noteContent.value.isNotEmpty()){
-                            //save/add the  content to the list
+                        if (noteName.value.isNotEmpty() && noteContent.value.isNotEmpty()) {
+                            onAddNote(
+                                Note(
+                                    noteTitle = noteName.value,
+                                    noteContent = noteContent.value
+                                )
+                            )
+                            Toast.makeText(context, "Note added", Toast.LENGTH_SHORT).show()
+                            noteName.value = ""
+                            noteContent.value = ""
                         }
                     }
                 )
             }
-
-            Column(
-                modifier = Modifier.fillMaxWidth(),
+            HorizontalDivider(
+                modifier = Modifier
+                    .padding(10.dp)
+                    .shadow(elevation = 3.dp),
+                thickness = 2.dp
+            )
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LazyColumn {
-//                    NoteCard(noteTitle = noteName.value, noteContent = noteContent.value)
+                items(notes) { note ->
+//                    NoteCard(modifier = Modifier.fillMaxWidth(), noteTitle = note.noteTitle, noteContent = note.noteContent)
+                    NoteRow(note = note, onNoteClicked = {onRemoveNote(note)})
                 }
             }
         }
@@ -126,5 +153,5 @@ fun NoteScreen() {
 @Preview(showBackground = true)
 @Composable
 fun NoteScreenPreview() {
-    NoteScreen()
+    NoteScreen(notes = NotesDataSource().loadNotes(), onAddNote = {}, onRemoveNote = {})
 }
