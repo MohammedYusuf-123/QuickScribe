@@ -25,7 +25,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.quickscribe.model.Note
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun NoteInputText(
@@ -98,10 +97,10 @@ fun NoteRow(
         ) {
             Text(text = note.noteTitle, style = MaterialTheme.typography.bodyMedium)
             Text(text = note.noteContent, style = MaterialTheme.typography.bodyLarge)
-            Text(
-                text = note.entryDate.format(DateTimeFormatter.ofPattern("EEE, d, MMM, yyyy HH:mm:ss")),
-                style = MaterialTheme.typography.bodySmall
-            )
+//            Text(
+//                text = note.entryDate.toString(),
+//                style = MaterialTheme.typography.bodySmall
+//            )
         }
 
     }

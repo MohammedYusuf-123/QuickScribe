@@ -11,7 +11,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quickscribe.screen.NoteScreen
 import com.example.quickscribe.screen.NoteViewModel
 import com.example.quickscribe.ui.theme.QuickScribeTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
