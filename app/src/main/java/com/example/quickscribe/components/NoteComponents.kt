@@ -97,10 +97,10 @@ fun NoteRow(
         ) {
             Text(text = note.noteTitle, style = MaterialTheme.typography.bodyMedium)
             Text(text = note.noteContent, style = MaterialTheme.typography.bodyLarge)
-//            Text(
-//                text = note.entryDate.toString(),
-//                style = MaterialTheme.typography.bodySmall
-//            )
+            Text(
+                text = note.entryDate.toString(),
+                style = MaterialTheme.typography.bodySmall
+            )
         }
 
     }
