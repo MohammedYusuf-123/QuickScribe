@@ -8,7 +8,7 @@ QuickScribe is a sleek and user-friendly Android app built using Kotlin and Jetp
 
 Here is a screen recording showcasing the functionality of QuickScribe:
 
-<video src="media/QuickScribe.webm" controls="controls" style="max-width: 100%; height: auto;">
+<video src="./media/QuickScribe.webm" controls="controls" style="max-width: 100%; height: auto;">
     Your browser does not support the video tag.
 </video>
 
