@@ -45,6 +45,7 @@ class NoteViewModel @Inject constructor(private val repository: NoteRepository) 
     fun removeNote(note: Note) = viewModelScope.launch {
         repository.deleteNote(note)
 
+        //this will make sure that there are no notes if there are no notes.
         val updatedList = repository.getAllNotes().firstOrNull() ?: emptyList()
         _noteList.value = updatedList
     }
