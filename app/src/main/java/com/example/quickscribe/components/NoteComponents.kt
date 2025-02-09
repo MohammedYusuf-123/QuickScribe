@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.quickscribe.model.Note
+import com.example.quickscribe.util.formatDate
 
 @Composable
 fun NoteInputText(
@@ -98,7 +99,7 @@ fun NoteRow(
             Text(text = note.noteTitle, style = MaterialTheme.typography.bodyMedium)
             Text(text = note.noteContent, style = MaterialTheme.typography.bodyLarge)
             Text(
-                text = note.entryDate.toString(),
+                text = formatDate(note.entryDate.time),
                 style = MaterialTheme.typography.bodySmall
             )
         }

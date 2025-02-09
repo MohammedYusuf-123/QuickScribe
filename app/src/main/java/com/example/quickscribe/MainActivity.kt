@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.quickscribe.screen.NoteScreen
 import com.example.quickscribe.screen.NoteViewModel
 import com.example.quickscribe.ui.theme.QuickScribeTheme
@@ -21,19 +21,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             QuickScribeTheme {
                 val noteViewModel: NoteViewModel by viewModels()
-                QuickScribeApp(noteViewModel = noteViewModel)
+                QuickScribeApp(noteViewModel)
             }
         }
     }
 }
 
 @Composable
-fun QuickScribeApp(noteViewModel: NoteViewModel = viewModel()) {
-    val noteList = noteViewModel.getAllNotes()
+fun QuickScribeApp(noteViewModel: NoteViewModel) {
+    val noteList = noteViewModel.noteList.collectAsState().value
     NoteScreen(
         notes = noteList,
         onAddNote = { noteViewModel.addNote(it) },
-        onRemoveNote = { noteViewModel.removeNote(it) }
+        onRemoveNote = { noteViewModel.removeNote(it) },
+        onRemoveAllNotes = { noteViewModel.removeAllNotes() }
     )
 }
 
@@ -42,6 +43,8 @@ fun QuickScribeApp(noteViewModel: NoteViewModel = viewModel()) {
 @Composable
 fun QuickScribePreview() {
     QuickScribeTheme {
-        QuickScribeApp()
+        QuickScribeApp(
+            noteViewModel = TODO()
+        )
     }
 }

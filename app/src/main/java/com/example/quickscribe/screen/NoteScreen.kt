@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -42,7 +44,8 @@ import com.example.quickscribe.model.Note
 fun NoteScreen(
     notes: List<Note>,
     onAddNote: (Note) -> Unit,
-    onRemoveNote: (Note) -> Unit
+    onRemoveNote: (Note) -> Unit,
+    onRemoveAllNotes: () -> Unit
 ) {
     val noteName = remember {
         mutableStateOf("")
@@ -69,6 +72,21 @@ fun NoteScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(Color(0xFFDADFE3))
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    onRemoveAllNotes()
+                    Toast.makeText(context, "Deleted all", Toast.LENGTH_SHORT).show()
+                },
+                containerColor = Color.White
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete All Notes",
+                    tint = Color.Red
+                )
+            }
         }
     ) { innerPadding ->
         Column(
@@ -142,7 +160,7 @@ fun NoteScreen(
             ) {
                 items(notes) { note ->
 //                    NoteCard(modifier = Modifier.fillMaxWidth(), noteTitle = note.noteTitle, noteContent = note.noteContent)
-                    NoteRow(note = note, onNoteClicked = {onRemoveNote(note)})
+                    NoteRow(note = note, onNoteClicked = { onRemoveNote(note) })
                 }
             }
         }
@@ -153,5 +171,9 @@ fun NoteScreen(
 @Preview(showBackground = true)
 @Composable
 fun NoteScreenPreview() {
-    NoteScreen(notes = NotesDataSource().loadNotes(), onAddNote = {}, onRemoveNote = {})
+    NoteScreen(
+        notes = NotesDataSource().loadNotes(),
+        onAddNote = {},
+        onRemoveNote = {},
+        onRemoveAllNotes = {})
 }

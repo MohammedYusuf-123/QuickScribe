@@ -25,5 +25,7 @@ object AppModule {
             context,
             NoteDatabase::class.java,
             name = "notes_db"
-        ).fallbackToDestructiveMigration().build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
 }
