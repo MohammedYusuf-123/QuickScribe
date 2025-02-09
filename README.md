@@ -17,14 +17,14 @@ QuickScribe is a sleek and user-friendly Android app built using Kotlin and Jetp
 
 ## 📸 Screenshots
 
-### **Adding a New Note**
-<img src="./screenshots/AddingNewNote.png" alt="Adding New Note" width="300"/>
+### **Home Screen**
+<img src="./screenshots/HomeScreen.png" alt="Adding New Note" width="300"/>
 
 ### **Creating a New Note**
 <img src="./screenshots/CreatingNewNote.png" alt="Creating New Note" width="300"/>
 
 ### **List of Notes**
-<img src="./screenshots/NoteList.png" alt="List of Notes" width="300"/>
+<img src="./screenshots/AddingNewNote.png" alt="Adding New Note" width="300"/>
 
 ### **Deleting a Note**
 <img src="./screenshots/RemovingNote.png" alt="Removing a Note" width="300"/>
@@ -58,3 +58,23 @@ com.example.quickscribe
 ├── ui.theme            # Custom themes and color definitions
 ├── util                # Utility classes like DateConverter and UUIDConverter
 └── MainActivity.kt     # Entry point for the app
+```
+
+## Clone the Repository
+To get a local copy of the project up and running, clone the repository:
+```bash
+git clone https://github.com/MohammedYusuf-123/QuickScribe.git
+cd quickscribe
+```
+
+---
+
+## Contributions are welcome! Follow these steps to contribute:
+	1.	Fork the Repository: Click the “Fork” button on GitHub.
+	2.	Create a Branch: Create a new branch for your feature:
+			git checkout -b feature/your-feature
+	3.	Commit your changes and push to your fork:
+			git commit -m "Add your message here"
+			git push origin feature/your-feature
+	4.	Open a pull request with a detailed description.
+
