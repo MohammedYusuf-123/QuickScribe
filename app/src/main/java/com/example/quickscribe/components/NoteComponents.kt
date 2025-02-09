@@ -22,7 +22,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.quickscribe.model.Note
 import com.example.quickscribe.util.formatDate
@@ -33,8 +32,9 @@ fun NoteInputText(
     text: String,
     label: String,
     maxLine: Int = 1,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     onTextChanged: (String) -> Unit,
-    onImeAction: () -> Unit = {}
+    onImeAction: @Composable () -> Unit = {}
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     TextField(
@@ -42,9 +42,7 @@ fun NoteInputText(
         onValueChange = onTextChanged,
         label = { Text(text = label) },
         maxLines = maxLine,
-        keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Done
-        ),
+        keyboardOptions = keyboardOptions,
         keyboardActions = KeyboardActions(onDone = {
             onImeAction
             keyboardController?.hide()

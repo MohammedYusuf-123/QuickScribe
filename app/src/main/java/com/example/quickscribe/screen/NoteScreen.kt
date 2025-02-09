@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.Notifications
@@ -30,6 +31,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.quickscribe.R
@@ -104,6 +106,7 @@ fun NoteScreen(
                 NoteInputText(
                     text = noteName.value,
                     label = "Title",
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next),
                     onTextChanged = {
                         if (it.all { char ->
                                 char.isLetter() || char.isWhitespace()
@@ -119,6 +122,7 @@ fun NoteScreen(
                 NoteInputText(
                     text = noteContent.value,
                     label = "Add a note",
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                     onTextChanged = {
                         if (it.all { char ->
                                 char.isLetter() || char.isWhitespace() || char.isDigit()
